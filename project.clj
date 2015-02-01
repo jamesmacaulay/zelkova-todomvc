@@ -6,13 +6,14 @@
 
   :source-paths ["src/clj" "src/cljs"]
 
-  :dependencies [[org.clojure/clojure "1.6.0"]
+  :dependencies [[org.clojure/clojure "1.7.0-alpha5"]
+                 [org.clojure/clojurescript "0.0-2740"]
+                 [jamesmacaulay/zelkova "0.2.1-SNAPSHOT"]
                  [com.facebook/react "0.11.2"]
                  [reagent "0.4.3"]
                  [reagent-forms "0.4.3"]
                  [reagent-utils "0.1.2"]
                  [secretary "1.2.1"]
-                 [org.clojure/clojurescript "0.0-2719" :scope "provided"]
                  [com.cemerick/piggieback "0.1.5"]
                  [weasel "0.5.0"]
                  [ring "1.3.2"]
