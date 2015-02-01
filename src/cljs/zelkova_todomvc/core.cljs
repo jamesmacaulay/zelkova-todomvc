@@ -197,12 +197,8 @@
     (task-list (:visibility model) (:tasks model))
     (controls (:visibility model) (:tasks model))]])
 
-
-
-
 (defn current-page []
   [:div (view empty-model)])
-
 
 ;---- INPUTS ----
 
