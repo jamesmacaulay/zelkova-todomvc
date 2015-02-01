@@ -42,9 +42,8 @@
 
 (defn send-action!
   [f & args]
-  (async/put! updates (apply partial f args)))
-
-(def no-op identity)
+  (async/put! updates (fn [model]
+                        (apply f model args))))
 
 (defn add
   [model]
@@ -58,11 +57,11 @@
                :tasks tasks))))
 
 (defn update-field
-  [str model]
+  [model str]
   (assoc model :field str))
 
 (defn editing-task
-  [id editing? model]
+  [model id editing?]
   (let [update-task' (fn [t]
                        (if (= id (:id t))
                          (assoc t :editing? editing?)
@@ -70,7 +69,7 @@
     (update model :tasks (partial mapv update-task'))))
 
 (defn update-task
-  [id description model]
+  [model id description]
   (let [update-task' (fn [t]
                        (if (= id (:id t))
                          (assoc t :description description)
@@ -78,7 +77,7 @@
     (update model :tasks (partial mapv update-task'))))
 
 (defn delete
-  [id model]
+  [model id]
   (update model :tasks (partial filterv #(not= id (:id %)))))
 
 (defn delete-complete
@@ -86,7 +85,7 @@
   (update model :tasks (partial filterv (complement :completed?))))
 
 (defn check
-  [id completed? model]
+  [model id completed?]
   (let [update-task' (fn [t]
                        (if (= id (:id t))
                          (assoc t :completed? completed?)
@@ -94,11 +93,11 @@
     (update model :tasks (partial mapv update-task'))))
 
 (defn check-all
-  [completed? model]
+  [model completed?]
   (update model :tasks (partial mapv #(assoc % :completed? completed?))))
 
 (defn change-visibility
-  [visibility model]
+  [model visibility]
   (assoc model :visibility visibility))
 
 ;---- VIEW ----
