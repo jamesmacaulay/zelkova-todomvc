@@ -56,7 +56,7 @@
                                     :compiler {:output-to     "js/app.js"
                                                :output-dir    "js/out"
                                                :externs       ["react/externs/react.js"]
-                                               :optimizations :simple
+                                               :optimizations :advanced
                                                :pretty-print  false}}}}
 
   :profiles {:dev {:repl-options {:init-ns zelkova-todomvc.handler
