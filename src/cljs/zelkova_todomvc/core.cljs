@@ -1,13 +1,10 @@
 (ns zelkova-todomvc.core
   "Translation of https://github.com/evancz/elm-todomvc (as of 1be0712d3fa8bf786bde84d8db5f685e23413876)"
-  (:require [reagent.core :as reagent :refer [atom]]
-            [reagent.session :as session]
+  (:require [reagent.core :as reagent]
             [jamesmacaulay.zelkova.signal :as z]
             [jamesmacaulay.zelkova.impl.signal :as zimpl]
             [cljs.core.async :as async]
-            [clojure.string :as str]
-            [goog.events :as events]
-            [goog.history.EventType :as EventType]))
+            [clojure.string :as str]))
 
 ;---- MODEL ----
 
@@ -209,7 +206,6 @@
     (.setItem js/localStorage local-storage-key data)))
 
 (def main-signal (z/map (fn [m]
-                          (println m)
                           (store-state! m)
                           (view m))
                         model))
@@ -217,7 +213,7 @@
 (def dom-atom
   (let [live-graph (z/spawn main-signal)]
     (z/pipe-to-atom live-graph
-                    (atom (zimpl/init live-graph)))))
+                    (reagent/atom (zimpl/init live-graph)))))
 
 (defn root-component [] @dom-atom)
 
