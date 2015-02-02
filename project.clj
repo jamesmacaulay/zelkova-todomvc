@@ -51,7 +51,13 @@
                                         :output-dir    "resources/public/js/out"
                                         :externs       ["react/externs/react.js"]
                                         :optimizations :none
-                                        :pretty-print  true}}}}
+                                        :pretty-print  true}}
+                       :production {:source-paths ["env/prod/cljs"]
+                                    :compiler {:output-to     "js/app.js"
+                                               :output-dir    "js/out"
+                                               :externs       ["react/externs/react.js"]
+                                               :optimizations :simple
+                                               :pretty-print  false}}}}
 
   :profiles {:dev {:repl-options {:init-ns zelkova-todomvc.handler
                                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
