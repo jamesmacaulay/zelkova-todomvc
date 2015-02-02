@@ -9,8 +9,6 @@
             [goog.events :as events]
             [goog.history.EventType :as EventType]))
 
-(enable-console-print!)
-
 ;---- MODEL ----
 
 (defn new-task
@@ -197,9 +195,6 @@
     (task-list (:visibility model) (:tasks model))
     (controls (:visibility model) (:tasks model))]])
 
-(defn current-page []
-  [:div (view empty-model)])
-
 ;---- INPUTS ----
 
 (def updates (async/chan))
@@ -213,13 +208,9 @@
   (let [data (-> model (clj->js) (js/JSON.stringify))]
     (.setItem js/localStorage local-storage-key data)))
 
-(defn do-side-effects!
-  [model]
-  (println model)
-  (store-state! model))
-
 (def main-signal (z/map (fn [m]
-                          (do-side-effects! m)
+                          (println m)
+                          (store-state! m)
                           (view m))
                         model))
 
