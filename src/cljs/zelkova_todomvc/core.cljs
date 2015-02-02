@@ -130,7 +130,7 @@
     [:li {:class class-name}
      [:div.view
       [:input.toggle {:type      "checkbox"
-                      :checked   (:completed todo)
+                      :checked   (:completed? todo)
                       :on-change (fn [_] (send-action! check (:id todo) (not (:completed? todo))))}]
       [:label {:on-double-click (fn [_] (send-action! editing-task (:id todo) true))}
        (:description todo)]
